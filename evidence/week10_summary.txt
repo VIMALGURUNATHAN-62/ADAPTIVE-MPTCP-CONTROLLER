@@ -1,0 +1,44 @@
+WEEK 10 — KEY RESULTS
+
+EXPERIMENT
+54 grid cells × 10 repetitions
+Stock MPTCP vs Controller MPTCP vs Single-path TCP
+
+VERDICT DISTRIBUTION
+Stock:       33 Beneficial | 13 NS | 8 Harmful
+Controller:  29 Beneficial | 21 NS | 4 Harmful
+
+HARMFUL-REGION CHANGE
+8/54 harmful  →  4/54 harmful
+4/8 harmful cells recovered to NS
+Harmful-region reduction: 50%
+
+CONTROLLER VS STOCK
+CI-separated improvement: 4/54
+CI-separated regression:  1/54
+CI-overlapping:           49/54
+
+HARMFUL REGION
+Controller improved mean goodput in all 8/8 stock-harmful cells
+Mean recovery: 43.1%
+
+TRAFFIC SHIFT
+Wi-Fi share:     78.66% → 89.16%
+Cellular share:  21.34% → 10.84%
+
+CELLULAR RETRANSMISSION
+Decreased in 6/8 harmful cells
+Increased in 2/8
+
+RTT INFLATION
+Decreased in 3/8 harmful cells
+Increased in 5/8
+
+LIMITATION
+All 4 remaining harmful cells:
+small buffer + 3% added loss
+
+CONCLUSION
+The userspace controller partially mitigated the harmful MPTCP region,
+but did not fully recover single-path performance under severe
+loss + constrained buffering.

@@ -1,0 +1,25 @@
+replay set: 560 gate-confirmed reps with client subflow traces (HARMFUL 100, BENEFICIAL 330, NS 130); 0 reps had no usable trace
+
+default parameters:  w_rtt=0.2 w_retx=1.0 theta=4.0 hyst=1.5 confirm_n=3  TPR=0.37 FPR=0.02 flaps=2 J=0.29
+3 parameter sets tie for the best J; median of the tied set chosen
+
+top 5 parameter sets (J = TPR - 2*FPR, flaps penalised):
+  w_rtt=0.4 w_retx=2.0 theta=5 hyst=1.0 confirm_n=2  TPR=0.57 FPR=0.05 flaps=1 J=0.44
+  w_rtt=0.4 w_retx=2.0 theta=5 hyst=1.5 confirm_n=2  TPR=0.57 FPR=0.05 flaps=1 J=0.44
+  w_rtt=0.4 w_retx=2.0 theta=5 hyst=2.0 confirm_n=2  TPR=0.57 FPR=0.05 flaps=1 J=0.44
+  w_rtt=0.2 w_retx=1.0 theta=3 hyst=1.0 confirm_n=3  TPR=0.51 FPR=0.03 flaps=2 J=0.41
+  w_rtt=0.2 w_retx=1.0 theta=3 hyst=1.5 confirm_n=3  TPR=0.51 FPR=0.03 flaps=2 J=0.41
+
+chosen parameters: w_rtt=0.4 w_retx=2.0 theta=5 hyst=1.5 confirm_n=2  TPR=0.57 FPR=0.05 flaps=1 J=0.44
+  harmful reps demoted (cell -> backup): 57/100
+  beneficial reps wrongly demoted:       18/330
+  NS reps demoted (neutral):             49/130
+  flaps (reversal < 5s): 1    Wi-Fi demoted/withdrawn in 17 reps
+  time to demote in harmful reps: median 5.0s, p90 6.0s
+  harmful cells mostly NOT demoted (4): rtt2_bw1_loss3_buf-small (30%), rtt2_bw2_loss3_buf-small (30%), rtt4_bw2_loss1_buf-small (20%), rtt4_bw5_loss1_buf-small (40%)
+  beneficial cells with false demotions (11): rtt1_bw1_loss3_buf-default (40%), rtt1_bw2_loss3_buf-default (20%), rtt1_bw5_loss1_buf-small (10%), rtt2_bw1_loss1_buf-default (10%), rtt2_bw2_loss0_buf-default (10%), rtt2_bw2_loss1_buf-small (20%)
+  anchor anchor-w4degraded_buf-default: demoted in 100% of reps
+  anchor anchor-w4degraded_buf-small: demoted in 90% of reps
+
+WEEK 7 VALIDATION (TPR >= 0.8, FPR <= 0.1, no flaps): FAIL
+  -> if TPR is low, harmful cells are not separable by RTT/retransmits alone (see AUCs in hol_diagnosis.txt); report that as a finding and lower the ambition of the recovery claim.

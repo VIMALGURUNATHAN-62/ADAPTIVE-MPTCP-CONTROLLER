@@ -1,0 +1,19 @@
+stock sweep: results/sweep_A   controller sweep: results/sweep_A_ctl_clean
+grid cells: 54   harmful under stock: 8   missing controller data for: 0
+
+recovery in harmful cells (n=8): mean 0.43, median 0.52, min 0.05, max 0.62
+  RECOVERED  4 cell(s): rtt4_bw2_loss1_buf-small, rtt4_bw5_loss1_buf-small, rtt2_bw5_loss3_buf-small, rtt4_bw1_loss3_buf-small
+  PARTIAL    3 cell(s): rtt2_bw2_loss3_buf-small, rtt4_bw2_loss3_buf-small, rtt4_bw5_loss3_buf-small
+  NONE       1 cell(s): rtt2_bw1_loss3_buf-small
+
+non-harmful grid cells with controller data: 46   regressed: 1 (rtt1_bw5_loss3_buf-default)
+
+anchor cells (Week 4 harmful point):
+  anchor-w4degraded_buf-default    single 16.09+/-1.82  stock 10.56+/-2.47  controller 12.73+/-1.65  recovery=0.39  -> RECOVERED
+  anchor-w4degraded_buf-small      single 14.67+/-0.50  stock 6.07+/-0.80  controller 10.30+/-0.53  recovery=0.49  -> PARTIAL
+
+detection: median time-to-first-demote across harmful cells = 5.10 s (n=8 cells with a demote)
+PM netlink errors across the controller sweep: 23  -- investigate before trusting these numbers
+
+WEEK 10 CLAIM CHECK:
+  recovery is small or inconsistent -- report the AUC/correlation results from hol_diagnosis.py and replay_policy.py alongside this: the detection signal itself may be the limiting factor, not the control action
