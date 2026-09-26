@@ -1,0 +1,42 @@
+HoL diagnosis: 560 reps (560 gate-confirmed) from results/sweep_A
+field coverage (reps with >=1 parsed sample): n_occ=560, n_sf_wifi=560, n_sf_cell=560
+
+per-verdict means over gate-confirmed grid reps (harmful cells vs the rest):
+  verdict       reps       occ_mean        occ_max    occ_hi_frac  rtt_inflation cell_retx_rate wifi_retx_rate
+  HARMFUL         80          0.135          0.743          0.116          3.627          0.026          0.005
+  NS             130          0.083          0.466          0.045          2.582          0.040          0.008
+  BENEFICIAL     330          0.069          0.436          0.022          2.362          0.005          0.012
+
+candidate Sense signals: AUC for HARMFUL vs BENEFICIAL reps (0.5 = useless, 1.0 = perfect, <0.5 = inverted)
+  occ_mean         AUC = 0.88
+  occ_max          AUC = 0.90
+  occ_hi_frac      AUC = 0.91
+  rtt_inflation    AUC = 0.70
+  cell_retx_rate   AUC = 0.82
+  wifi_retx_rate   AUC = 0.56
+  (n harmful reps = 80, n beneficial reps = 330)
+
+correlation with per-rep goodput ratio (MPTCP/single), gate-confirmed grid reps:
+  occ_mean         r = -0.29
+  occ_max          r = -0.23
+  occ_hi_frac      r = -0.32
+  rtt_inflation    r = -0.06
+  cell_retx_rate   r = -0.13
+  wifi_retx_rate   r = 0.02
+
+harmful cells by dominant cause (HoL if occ_mean >= 0.4, loss if slow-path retx >= 1%):
+  HoL (receive buffer)     0
+  loss on slow path        10
+  other/undetermined       0
+    anchor-w4degraded_buf-small            ratio 0.41  occ 0.19  cell-retx 0.059  -> loss on slow path
+    rtt4_bw2_loss3_buf-small               ratio 0.65  occ 0.17  cell-retx 0.026  -> loss on slow path
+    anchor-w4degraded_buf-default          ratio 0.66  occ 0.09  cell-retx 0.069  -> loss on slow path
+    rtt4_bw1_loss3_buf-small               ratio 0.66  occ 0.15  cell-retx 0.028  -> loss on slow path
+    rtt4_bw5_loss3_buf-small               ratio 0.73  occ 0.13  cell-retx 0.040  -> loss on slow path
+    rtt2_bw2_loss3_buf-small               ratio 0.79  occ 0.14  cell-retx 0.013  -> loss on slow path
+    rtt4_bw2_loss1_buf-small               ratio 0.80  occ 0.14  cell-retx 0.020  -> loss on slow path
+    rtt2_bw5_loss3_buf-small               ratio 0.82  occ 0.11  cell-retx 0.028  -> loss on slow path
+    rtt2_bw1_loss3_buf-small               ratio 0.88  occ 0.13  cell-retx 0.031  -> loss on slow path
+    rtt4_bw5_loss1_buf-small               ratio 0.91  occ 0.10  cell-retx 0.012  -> loss on slow path
+  harmful grid cells with buffer=small: 8/27
+  harmful grid cells with buffer=default: 0/27
