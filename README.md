@@ -2,7 +2,7 @@
 
 Reproducing and measuring the "harmful region" of stock Multipath TCP (MPTCP)
 on an emulated dual-path (Wi-Fi + cellular) Linux testbed, then building a
-kernel-unmodified userspace controller that recovers most of the lost
+kernel-unmodified userspace controller that partially recovers the lost
 goodput — using nothing but network namespaces, `tc netem`, `iperf3`, and
 the standard MPTCP path-manager netlink API on unmodified Linux ≥ 5.19.
 
