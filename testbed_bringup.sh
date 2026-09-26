@@ -41,6 +41,8 @@ ip netns exec "$SERVER_NS" ip link set lo up
 log "Step 4: enable MPTCP, register endpoints, set subflow limits"
 ip netns exec "$CLIENT_NS" sysctl -qw net.mptcp.enabled=1
 ip netns exec "$SERVER_NS" sysctl -qw net.mptcp.enabled=1
+ip netns exec "$CLIENT_NS" sysctl -qw net.mptcp.pm_type=0
+ip netns exec "$SERVER_NS" sysctl -qw net.mptcp.pm_type=0
 ip netns exec "$CLIENT_NS" ip mptcp endpoint add "${IP_C_CELL%/*}" dev "$VETH_C_CELL" subflow
 ip netns exec "$SERVER_NS" ip mptcp endpoint add "${IP_S_CELL%/*}" dev "$VETH_S_CELL" signal
 ip netns exec "$CLIENT_NS" ip mptcp limits set subflows 1 add_addr_accepted 1
@@ -52,14 +54,12 @@ echo "-- client limits --"; ip netns exec "$CLIENT_NS" ip mptcp limits show
 log "Step 5: self-test - confirm both subflows actually come up"
 pkill -9 -f "iperf3 --server" 2>/dev/null || true
 sleep 1
-
 ip netns exec "$SERVER_NS" mptcpize run iperf3 -s -1 -D
 sleep 2
-
 timeout 10 ip netns exec "$CLIENT_NS" ip mptcp monitor > "$LOGDIR/bringup_monitor.log" 2>&1 &
 MONITOR_PID=$!
 sleep 1
-
+set +e
 ip netns exec "$CLIENT_NS" mptcpize run iperf3 -c "${IP_S_WIFI%/*}" -t 8 > "$LOGDIR/bringup_selftest.log" 2>&1
 wait "$MONITOR_PID" 2>/dev/null || true
 
