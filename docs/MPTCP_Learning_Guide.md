@@ -384,11 +384,11 @@ grep -h "subflows:" results/*/ss_mptcp_rep*.log | grep -o "subflows:[0-9]" | sor
 
 **General principle — the single most important one in this whole project:** *never trust one measurement method on its own, especially a polled/sampled one, for anything you're about to make a conclusion from.* Two independent methods agreeing is real evidence. One method reporting a clean number is not, by itself, evidence of anything. This is why Part 4.5 asks you to verify the testbed three separate ways, not one — that habit is the direct, deliberate outcome of this exact debugging episode.
 
-### 6.6 A smaller but very real lesson: watch for content that wasn't actually said
+### 6.6 Verification principle: trace claims to evidence
 
-At two points during this project's development, a block of text appeared in the working conversation formatted to look exactly like an assistant's own earlier reply — including specific technical claims about what had supposedly already been fixed — but it did not match anything that had actually been said earlier. Both times, this was noticed, explicitly flagged, and excluded from being treated as fact; only independently-checkable terminal output and the actual files on disk were used from that point forward.
+Project history should be treated like experimental data: a claim about a previous fix, result, or decision should be traceable to terminal output, source files, or a dated project artifact. When that trace is missing, treat the claim as unverified until it can be independently confirmed.
 
-**General principle:** apply the same "verify independently" habit from 6.5 to information itself, not just to measurements. If something is presented as an established fact or a prior decision, and you can't find where it was actually verified, treat it as unverified until you check.
+This is consistent with the measurement discipline used throughout this project: raw evidence and independently reproducible state take precedence over summaries or remembered context.
 
 ---
 
@@ -408,6 +408,8 @@ The final, fully validated result — 10 of 10 repetitions confirmed via the ker
 | `asymmetric-cell-degraded` (90 ms, 6% loss, 3 Mbit) | 13.05 Mbps (±2.28) | 17.00 Mbps (±1.02) | MPTCP significantly **worse** — the harmful region from Part 1.4 is reproduced, on trustworthy data |
 
 This satisfies the project's own validation requirement ("at least one asymmetric case shows stock MPTCP at/below single-path TCP goodput") and gives Phase 3 something real to improve on.
+
+**Note on the README's n=20 result:** the repository README records a separate `n=20` batch for the same `asymmetric-cell-degraded` scenario as 11.57 ± 1.35 Mbps for stock MPTCP and 17.00 ± 1.43 Mbps for single-path TCP. That batch is distinct from the final validated `n=10` Week 4 result above and has not been independently revalidated from raw experiment files in the current repository snapshot, so the two datasets should not be combined.
 
 **If you pull raw data from the results backup archive:** it contains more than these two folders — several earlier, superseded attempts (including the invalid 721-subflows:1 batch from Part 6.4) were kept for traceability. Only use the two run folders timestamped `20260811_202659` and `20260811_203335` — those are the ones collected after every fix in Part 6 was in place. If you're not sure whether a folder predates the fixes, check whether its `baseline_results.csv` has 8 columns (post-fix, includes `monitor_sf_established`) or 6 (pre-fix) — see Part 10 for the exact check.
 
