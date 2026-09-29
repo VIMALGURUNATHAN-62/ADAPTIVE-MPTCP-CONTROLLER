@@ -204,7 +204,7 @@ disappearing) and demotes the dead path via `MP_PRIO`. See
   it will never receive a clean `CLOSED` netlink event for them. See
   `CONN_IDLE_TIMEOUT_S` in `controller.py`.
 - **Detection is not perfect.** `replay_policy.py` on real sweep traces:
-  TPR ≈ 0.78, FPR ≈ 0.22 for the tuned parameters. RTT inflation and
+  TPR = 0.57, FPR = 0.05 for the selected parameters. RTT inflation and
   retransmit rate — the only signals visible from the client's `ss` output
   — do not perfectly separate harmful from beneficial conditions. Report
   this limitation alongside the recovery numbers; it's the honest ceiling
